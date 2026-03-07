@@ -39,6 +39,7 @@ export default function Matchup({ matchup, onSelectWinner, isActive }: MatchupPr
         <div className="flex items-center gap-2 md:gap-3">
           <div className="w-5 h-5 md:w-6 md:h-6 shrink-0 relative flex items-center justify-center">
             {team ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img 
                 src={team.teamLogo} 
                 alt={team.teamName.default} 
