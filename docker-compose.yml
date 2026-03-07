@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nhl-playoffs-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: nhl-playoffs-app:latest
+    container_name: nhl-playoffs-app
+    restart: unless-stopped
+    ports:
+      - "3030:3000" # Maps host port 3030 to container port 3000
+    environment:
+      - NODE_ENV=production
