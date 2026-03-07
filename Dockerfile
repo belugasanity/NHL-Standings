@@ -25,8 +25,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV NEXT_DISABLE_ESLINT=1
 ENV DISABLE_ESLINT_PLUGIN=true
 
-# Add a script to bypass tsc errors if any exist
-RUN npm run build || (echo "Build failed, but continuing..." && exit 0)
+RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -39,6 +38,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
